@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div class="playfield">
+
+    </div>
+</body>
+</html>
+<style>
+    html
+    {
+        width: 100%;
+        height: 100%;
+    }
+    body
+    {
+        background: radial-gradient(ellipse at center, #6C6C89 0%, #28285E 100%);
+        color: white;
+    }
+    .playfield
+    {
+        background: whitesmoke;
+        width: 1040px;
+        height: 600px;
+        top: 10%;
+        left: 5%;
+        position: absolute;
+        border-radius: 4px;
+        border: solid 4px brown;
+        box-shadow: 2px 4px 4px black;
+        z-index: 0;
+        cursor: none;
+    }
+    .ball
+    {
+        position: absolute;
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        background: dodgerblue;
+        box-shadow: 1px 2px 2px grey;
+        pointer-events: none;
+    }
+    
+</style>
+<script>
+    function addBall()
+    {
+        var idBall = createID();
+        $('.playfield')
+        .prepend('<div class="blall" data-id=' + idBall + '></div>');
+        balls
+        .push(
+            {
+                id: idBall,
+                left: 100,
+                top: 100,
+                hSpeed: 2,
+                vSpeed: 2
+            }
+        )
+    }
+    function createId() {
+        var code = "";
+        for (var $compteur = 0; $compteur < 8; $compteur++)
+        {
+            code += String.fromCharCode(65 + Math.random() * 26);
+        }
+        return code;
+    }
+    var balls = [];
+    $(document).ready(init);
+    function init()
+    {
+        addBall();
+    }
+    function addBall() {
+        var idBall = createId();
+        $('.playfield').prepend('<div class="ball" data-id="' + idBall + '"></div>');
+        balls.push({id: idBall, left: 100, top: 100, hSpeed: 2, vSpeed: 2});
+    }
+    function drawBalls()
+    {
+        balls.forEach(function (e) {
+            e.left += e.hSpeed;
+            e.top += e.vSpeed;
+            $('.ball[data-id="' + e.id+ '"]')
+            .css({
+                left: e.left + 'px',
+                top: e.top + 'px'
+            });
+        });
+    }
+</script>
